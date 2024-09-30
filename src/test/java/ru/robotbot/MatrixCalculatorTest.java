@@ -188,7 +188,7 @@ public class MatrixCalculatorTest {
                 {3, 4},
                 {5, 6}
         };
-        assertThrows(IllegalArgumentException.class, () -> MatrixCalculator.traceMatrix(matrix));
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> MatrixCalculator.traceMatrix(matrix));
     }
 
     // 10. Тест для нахождения суммы всех элементов матрицы

@@ -213,6 +213,7 @@ public class MatrixCalculator {
 
     // 17. Проверка, является ли матрица квадратной
     public static boolean isSquareMatrix(int[][] matrix) {
+        if (matrix.length == 0) return true;
         return matrix.length == matrix[0].length;
     }
 
