@@ -7,6 +7,9 @@ public class MatrixCalculator {
     public static int[][] addMatrices(int[][] matrix1, int[][] matrix2) {
         int rows = matrix1.length;
         int cols = matrix1[0].length;
+        if(rows != matrix2.length || cols != matrix2[0].length) {
+            throw new IllegalArgumentException("Длины матриц не совпадают");
+        }
         int[][] result = new int[rows][cols];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
@@ -45,6 +48,9 @@ public class MatrixCalculator {
     public static int[][] subtractMatrices(int[][] matrix1, int[][] matrix2) {
         int rows = matrix1.length;
         int cols = matrix1[0].length;
+        if(rows != matrix2.length || cols != matrix2[0].length) {
+            throw new IllegalArgumentException("Длины матриц не совпадают");
+        }
         int[][] result = new int[rows][cols];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
@@ -58,10 +64,9 @@ public class MatrixCalculator {
     public static double[][] invertMatrix(int[][] matrix) {
         if (matrix.length == 2 && matrix[0].length == 2) {
             int det = findDeterminant(matrix);
-            if (det == 0) throw new ArithmeticException("Матрица необратима");
             double[][] result = new double[2][2];
             result[0][0] = matrix[1][1] / (double) det;
-            result[0][1] = -matrix[0][1] / (double) det;
+            result[0][1] = matrix[0][1] / (double) det;
             result[1][0] = -matrix[1][0] / (double) det;
             result[1][1] = matrix[0][0] / (double) det;
             return result;
@@ -75,6 +80,10 @@ public class MatrixCalculator {
     public static int[][] multiplyMatrices(int[][] matrix1, int[][] matrix2) {
         int rows1 = matrix1.length;
         int cols1 = matrix1[0].length;
+        if (cols1 != matrix2.length) {
+            throw new IllegalArgumentException("Кол-во столбцов первой матрицы должно совпадать с кол-вом " +
+                    "строк второй матрицы");
+        }
         int cols2 = matrix2[0].length;
         int[][] result = new int[rows1][cols2];
         for (int i = 0; i < rows1; i++) {
@@ -118,6 +127,9 @@ public class MatrixCalculator {
 
     // 9. Нахождение следа матрицы (сумма элементов на главной диагонали)
     public static int traceMatrix(int[][] matrix) {
+        if (matrix.length != matrix[0].length) {
+            throw new IllegalArgumentException("Матрица должны быть квадратной");
+        }
         int trace = 0;
         for (int i = 0; i < matrix.length; i++) {
             trace += matrix[i][i];
@@ -168,6 +180,9 @@ public class MatrixCalculator {
 
     // 13. Установка значения элемента по индексу
     public static void setElement(int[][] matrix, int row, int col, int value) {
+        if (matrix.length <= row || matrix[0].length <= col) {
+            throw new IllegalArgumentException("Строки или столбца с таким номером нет в матрице");
+        }
         matrix[row][col] = value;
     }
 
@@ -235,6 +250,9 @@ public class MatrixCalculator {
 
     // 19. Получение элемента матрицы по индексу
     public static int getElement(int[][] matrix, int row, int col) {
+        if (matrix.length <= row || matrix[0].length <= col) {
+            throw new IllegalArgumentException("Строки или столбца с таким номером нет в матрице");
+        }
         return matrix[row][col];
     }
 

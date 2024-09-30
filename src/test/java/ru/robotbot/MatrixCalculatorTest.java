@@ -24,6 +24,20 @@ public class MatrixCalculatorTest {
         assertArrayEquals(expected, MatrixCalculator.addMatrices(matrix1, matrix2));
     }
 
+    @Test
+    void testAddMatricesThrowsWhenLengthsDontMatch() {
+        int[][] matrix1 = {
+                {1, 2},
+                {3, 4},
+                {5, 6}
+        };
+        int[][] matrix2 = {
+                {5, 6},
+                {7, 8}
+        };
+        assertThrows(IllegalArgumentException.class, () -> MatrixCalculator.addMatrices(matrix1, matrix2), "Длины матриц не совпадают");
+    }
+
     // 2. Тест для нахождения детерминанта 2x2 матрицы
     @Test
     void testFindDeterminant() {
@@ -85,6 +99,20 @@ public class MatrixCalculatorTest {
         assertArrayEquals(expected, MatrixCalculator.subtractMatrices(matrix1, matrix2));
     }
 
+    @Test
+    void testSubtractMatricesThrowsWhenLengthsDontMatch() {
+        int[][] matrix1 = {
+                {1, 2},
+                {3, 4},
+                {5, 6}
+        };
+        int[][] matrix2 = {
+                {5, 6},
+                {7, 8}
+        };
+        assertThrows(IllegalArgumentException.class, () -> MatrixCalculator.subtractMatrices(matrix1, matrix2), "Длины матриц не совпадают");
+    }
+
     // 5. Тест для нахождения обратной матрицы (для 2x2 матрицы)
     @Test
     void testInvertMatrix() {
@@ -135,6 +163,21 @@ public class MatrixCalculatorTest {
                 {43, 50}
         };
         assertArrayEquals(expected, MatrixCalculator.multiplyMatrices(matrix1, matrix2));
+    }
+
+    @Test
+    void testMultiplyMatricesThrowsException() {
+        int[][] matrix1 = {
+                {1, 2},
+                {3, 4}
+        };
+        int[][] matrix2 = {
+                {5, 6},
+                {7, 8},
+                {1, 2}
+        };
+        assertThrows(IllegalArgumentException.class, () -> MatrixCalculator.multiplyMatrices(matrix1, matrix2),
+                "Кол-во столбцов первой матрицы должно совпадать с кол-вом строк второй матрицы");
     }
 
     // 7. Тест для умножения матрицы на скаляр
@@ -188,7 +231,8 @@ public class MatrixCalculatorTest {
                 {3, 4},
                 {5, 6}
         };
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> MatrixCalculator.traceMatrix(matrix));
+        assertThrows(IllegalArgumentException.class, () -> MatrixCalculator.traceMatrix(matrix),
+                "Матрица должны быть квадратной");
     }
 
     // 10. Тест для нахождения суммы всех элементов матрицы
@@ -262,7 +306,8 @@ public class MatrixCalculatorTest {
                 {4, 5, 6},
                 {7, 8, 9}
         };
-        assertThrows(IndexOutOfBoundsException.class, () -> MatrixCalculator.setElement(matrix, 3, 3, 99));
+        assertThrows(IllegalArgumentException.class, () -> MatrixCalculator.setElement(matrix, 3, 3, 99),
+                "Строки или столбца с таким номером нет в матрице");
     }
 
     // 14. Тест для нахождения максимального элемента в матрице
@@ -408,7 +453,8 @@ public class MatrixCalculatorTest {
                 {4, 5, 6},
                 {7, 8, 9}
         };
-        assertThrows(IndexOutOfBoundsException.class, () -> MatrixCalculator.getElement(matrix, 3, 3));
+        assertThrows(IllegalArgumentException.class, () -> MatrixCalculator.getElement(matrix, 3, 3),
+                "Строки или столбца с таким номером нет в матрице");
     }
 
     // 20. Тест для зеркального отражения матрицы по горизонтали
